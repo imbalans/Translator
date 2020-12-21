@@ -14,8 +14,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.translator.R
-import com.example.translator.utils.network.isOnline
-import com.example.translator.utils.ui.AlertDialogFragment
+import com.example.utils.network.isOnline
+import com.example.utils.ui.AlertDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_description.*
@@ -54,8 +54,8 @@ class DescriptionActivity : AppCompatActivity() {
         if (imageLink.isNullOrBlank()) {
             stopRefreshAnimationIfNeeded()
         } else {
-            //usePicassoToLoadPhoto(description_imageview, imageLink)
-            useGlideToLoadPhoto(description_imageview, imageLink)
+            //usePicassoToLoadPhoto(findViewById(R.id.description_imageview), imageLink)
+            useGlideToLoadPhoto(findViewById(R.id.description_imageview), imageLink)
         }
     }
 
