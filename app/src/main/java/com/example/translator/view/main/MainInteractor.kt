@@ -1,25 +1,25 @@
 package com.example.translator.view.main
 
 import com.example.core.viewmodel.Interactor
+import com.example.model.data.AppState
 import com.example.model.data.DataModel
-import com.example.model.data.SearchResult
 import com.example.repository.Repository
 import com.example.repository.RepositoryLocal
 
 
 class MainInteractor(
-    private val repositoryRemote: Repository<List<SearchResult>>,
-    private val repositoryLocal: RepositoryLocal<List<SearchResult>>
-) : Interactor<DataModel> {
+    private val repositoryRemote: Repository<List<DataModel>>,
+    private val repositoryLocal: RepositoryLocal<List<DataModel>>
+) : Interactor<AppState> {
 
-    override suspend fun getData(word: String, fromRemoteSource: Boolean): DataModel {
-        val dataModel: DataModel
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
+        val appState: AppState
         if (fromRemoteSource) {
-            dataModel = DataModel.Success(repositoryRemote.getData(word))
-            repositoryLocal.saveToDB(dataModel)
+            appState = AppState.Success(repositoryRemote.getData(word))
+            repositoryLocal.saveToDB(appState)
         } else {
-            dataModel = DataModel.Success(repositoryLocal.getData(word))
+            appState = AppState.Success(repositoryLocal.getData(word))
         }
-        return dataModel
+        return appState
     }
 }

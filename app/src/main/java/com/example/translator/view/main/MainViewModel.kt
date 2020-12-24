@@ -2,6 +2,7 @@ package com.example.translator.view.main
 
 import androidx.lifecycle.LiveData
 import com.example.core.viewmodel.BaseViewModel
+import com.example.model.data.AppState
 import com.example.model.data.DataModel
 import com.example.translator.utils.parseOnlineSearchResults
 import kotlinx.coroutines.Dispatchers
@@ -9,16 +10,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(private val interactor: MainInteractor) :
-    BaseViewModel<DataModel>() {
+    BaseViewModel<AppState>() {
 
-    private val liveDataForViewToObserve: LiveData<DataModel> = _mutableLiveData
+    private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
-    fun subscribe(): LiveData<DataModel> {
+    fun subscribe(): LiveData<AppState> {
         return liveDataForViewToObserve
     }
 
     override fun getData(word: String, isOnline: Boolean) {
-        _mutableLiveData.value = DataModel.Loading(null)
+        _mutableLiveData.value = AppState.Loading(null)
         cancelJob()
         viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
@@ -30,12 +31,12 @@ class MainViewModel(private val interactor: MainInteractor) :
         }
 
     override fun handleError(error: Throwable) {
-        _mutableLiveData.postValue(DataModel.Error(error))
+        _mutableLiveData.postValue(AppState.Error(error))
     }
 
     override fun onCleared() {
         _mutableLiveData.value =
-            DataModel.Success(null)//TODO Workaround. Set View to original state
+            AppState.Success(null)//TODO Workaround. Set View to original state
         super.onCleared()
     }
 }

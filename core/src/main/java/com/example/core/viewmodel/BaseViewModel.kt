@@ -2,10 +2,11 @@ package com.example.core.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.model.data.AppState
 import com.example.model.data.DataModel
 import kotlinx.coroutines.*
 
-abstract class BaseViewModel<T : DataModel>(
+abstract class BaseViewModel<T : AppState>(
     protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()
 ) : ViewModel() {
 
