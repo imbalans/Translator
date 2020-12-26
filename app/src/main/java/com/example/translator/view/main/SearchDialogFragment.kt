@@ -39,10 +39,10 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     private val onSearchButtonClickListener =
-        View.OnClickListener {
-            onSearchClickListener?.onClick(searchEditText.text.toString())
-            dismiss()
-        }
+            View.OnClickListener {
+                onSearchClickListener?.onClick(searchEditText.text.toString())
+                dismiss()
+            }
 
     internal fun setOnSearchClickListener(listener: OnSearchClickListener) {
         onSearchClickListener = listener

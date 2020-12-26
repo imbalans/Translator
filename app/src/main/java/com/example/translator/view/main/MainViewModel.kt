@@ -3,14 +3,13 @@ package com.example.translator.view.main
 import androidx.lifecycle.LiveData
 import com.example.core.viewmodel.BaseViewModel
 import com.example.model.data.AppState
-import com.example.model.data.DataModel
 import com.example.translator.utils.parseOnlineSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(private val interactor: MainInteractor) :
-    BaseViewModel<AppState>() {
+        BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
@@ -26,9 +25,9 @@ class MainViewModel(private val interactor: MainInteractor) :
 
     //Doesn't have to use withContext for Retrofit call if you use .addCallAdapterFactory(CoroutineCallAdapterFactory()). The same goes for Room
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
-        withContext(Dispatchers.IO) {
-            _mutableLiveData.postValue(parseOnlineSearchResults(interactor.getData(word, isOnline)))
-        }
+            withContext(Dispatchers.IO) {
+                _mutableLiveData.postValue(parseOnlineSearchResults(interactor.getData(word, isOnline)))
+            }
 
     override fun handleError(error: Throwable) {
         _mutableLiveData.postValue(AppState.Error(error))
@@ -36,7 +35,7 @@ class MainViewModel(private val interactor: MainInteractor) :
 
     override fun onCleared() {
         _mutableLiveData.value =
-            AppState.Success(null)//TODO Workaround. Set View to original state
+                AppState.Success(null)//TODO Workaround. Set View to original state
         super.onCleared()
     }
 }
