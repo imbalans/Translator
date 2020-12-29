@@ -35,7 +35,6 @@ class MainAdapter(private var onListItemClickListener: OnListItemClickListener) 
         return data.size
     }
 
-    //ViewHolder должен имплементировать интерфейс LayoutContainer, иначе view не будет браться из кеша
     inner class RecyclerItemViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView),
             LayoutContainer {
